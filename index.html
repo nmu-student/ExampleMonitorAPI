@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Laba2</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script>
+			function doCount(id) {
+				$.ajax({
+					url: "http://192.168.0.100:8030/category/monitor_click/" + id,
+					dataType: 'text',
+					type: 'GET', 
+					crossDomain: true,
+					success: function() {
+						window.location = "http://192.168.0.100:8030/category/monitor/" + id;
+					}
+				});
+			}
+		</script
+	</head>
+	<body>
+		<script>
+			(function() {
+				$.ajax( { 
+					url: "http://192.168.0.100:8030/category/monitors", 
+					dataType: 'text',
+					type: 'GET', 
+					crossDomain: true,
+					
+					success: function( data ) {
+							data = JSON.parse(data);
+							links = data.monitors.map(m => 
+								"<a href=\"http://192.168.0.100:8030/category/monitor/" 
+								+ m[0] + "\" onclick=\"event.preventDefault(); doCount(" 
+								+ m[0] + ");\">" + m[1] + "</href><br/>"
+							);
+							document.getElementById("content").innerHTML = links;
+						}
+						
+					});
+			})();	
+		</script>
+		
+		<div id="content"></div>
+	</body>
+</html>
