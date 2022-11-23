@@ -1,0 +1,13 @@
+[Unit]
+Description=Monitors REST service
+Requires=network.target
+After=network.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/opt/monitor_api/monitor_api.sh start
+ExecStop=/opt/monitor_api/monitor_api.sh stop
+
+[Install]
+WantedBy=multi-user.target
